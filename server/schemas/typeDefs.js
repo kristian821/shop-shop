@@ -34,6 +34,9 @@ const typeDefs = gql`
     token: ID
     user: User
   }
+  type Checkout {
+    session: ID
+  }
 
   type Query {
     categories: [Category]
@@ -41,6 +44,7 @@ const typeDefs = gql`
     product(_id: ID!): Product
     user: User
     order(_id: ID!): Order
+    checkout(products: [ID]!): Checkout
   }
 
   type Mutation {
