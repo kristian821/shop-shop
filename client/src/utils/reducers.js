@@ -9,9 +9,17 @@ import {
     CLEAR_CART,
     TOGGLE_CART
 } from '../utils/actions';
-import { useReducer } from 'react';
 
-export const reducer = (state, action) => {
+
+const initialState = {
+    products: [],
+    cart: [],
+    cartOpen: false,
+    categories: [],
+    currentCategory: '',
+}
+
+const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         // if action type value is the value of `UPDATE_PRODUCTS`, return a new state object with an updated products array
         case UPDATE_PRODUCTS:
@@ -40,7 +48,7 @@ export const reducer = (state, action) => {
         case ADD_MULTIPLE_TO_CART:
             return {
                 ...state,
-                cart: [...state.cart, ...action.products]
+                cart: [...state.cart, ...action.payload.products]
             };
         case REMOVE_FROM_CART:
            let newState = state.cart.filter(product => {
@@ -82,8 +90,6 @@ export const reducer = (state, action) => {
         default: 
             return state;
     }
-};
+}; 
 
-export function useProductReducer(initialState) {
-    return useReducer(reducer, initialState);
-};
+export default rootReducer;
